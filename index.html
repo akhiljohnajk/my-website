@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineFest 2026 - Short Film Fest Management System</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#0b0f19] text-gray-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- Top Academic & Project Credit Banner -->
+  <div class="bg-gradient-to-r from-slate-900 via-amber-950/50 to-slate-900 border-b border-amber-500/20 px-4 py-1.5 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-gray-300 font-medium">Topic: <strong class="text-amber-400">Short film fest management system</strong></span>
+      </div>
+      <div class="flex items-center gap-4 text-gray-400">
+        <span>Student: <strong class="text-gray-200">AKHIL JOHN</strong></span>
+        <span class="font-mono text-amber-500/90 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Regno: CCE25CD011</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Header & Global Bar -->
+  <header class="sticky top-0 z-40 bg-[#090d16]/95 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        
+        <!-- Brand / Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="App.navigate('overview')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center text-black font-black text-xl shadow-lg shadow-amber-500/20">
+            🎬
+          </div>
+          <div>
+            <span class="text-lg font-black tracking-wider text-white font-cinema uppercase">CineFest <span class="text-amber-400">2026</span></span>
+            <p class="text-[10px] text-gray-400 tracking-wider uppercase font-mono">Short Film Festival Management</p>
+          </div>
+        </div>
+
+        <!-- Role Quick Switcher (Top Interactive Control) -->
+        <div class="hidden lg:flex items-center gap-2 bg-slate-900/90 p-1 rounded-xl border border-slate-800 shadow-inner">
+          <span class="text-[10px] font-mono font-bold text-gray-400 uppercase px-2">Role:</span>
+          <div id="roleSwitcherContainer" class="flex items-center gap-1">
+            <!-- Injected by app.js -->
+          </div>
+        </div>
+
+        <!-- Right Side: Notifications & User Profile -->
+        <div class="flex items-center gap-3">
+          <!-- Announcements Button with Badge -->
+          <button onclick="App.navigate('announcements')" class="relative p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-gray-300 border border-slate-700/60 transition-all" title="Announcements & Notifications">
+            <span>🔔</span>
+            <span id="notifCountBadge" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[10px] font-bold text-white flex items-center justify-center font-mono">
+              3
+            </span>
+          </button>
+
+          <!-- Current User Pill -->
+          <div id="headerUserDisplay" class="flex items-center pl-2 border-l border-slate-800">
+            <!-- Injected by app.js -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile Role Switcher Row -->
+      <div class="lg:hidden py-2 border-t border-slate-800/60 overflow-x-auto flex items-center gap-1.5 scrollbar-none">
+        <span class="text-[10px] font-mono text-gray-400 uppercase shrink-0">Persona:</span>
+        <div id="mobileRoleSwitcher" class="flex gap-1.5 shrink-0">
+          <button onclick="App.setRole('admin')" class="px-2 py-1 rounded bg-slate-800 text-[11px] font-semibold text-gray-300">Admin</button>
+          <button onclick="App.setRole('filmmaker')" class="px-2 py-1 rounded bg-slate-800 text-[11px] font-semibold text-gray-300">Filmmaker</button>
+          <button onclick="App.setRole('judge')" class="px-2 py-1 rounded bg-slate-800 text-[11px] font-semibold text-gray-300">Judge</button>
+          <button onclick="App.setRole('viewer')" class="px-2 py-1 rounded bg-slate-800 text-[11px] font-semibold text-gray-300">Viewer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Module Navigation Bar -->
+    <nav class="bg-slate-950/70 border-t border-slate-800/60 overflow-x-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex space-x-1 py-2 text-xs font-semibold whitespace-nowrap">
+          <button onclick="App.navigate('overview')" data-tab="overview" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>🏠</span> <span>Festival Hub</span>
+          </button>
+          <button onclick="App.navigate('dashboard')" data-tab="dashboard" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>📊</span> <span>Admin Dashboard (M7)</span>
+          </button>
+          <button onclick="App.navigate('films')" data-tab="films" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>🎞️</span> <span>Films & Voting (M3)</span>
+          </button>
+          <button onclick="App.navigate('submissions')" data-tab="submissions" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>🎬</span> <span>Film Submission (M2)</span>
+          </button>
+          <button onclick="App.navigate('evaluation')" data-tab="evaluation" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>⚖️</span> <span>Jury Evaluation (M3)</span>
+          </button>
+          <button onclick="App.navigate('screenings')" data-tab="screenings" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>📽️</span> <span>Screening Schedules (M4)</span>
+          </button>
+          <button onclick="App.navigate('tickets')" data-tab="tickets" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>🎟️</span> <span>Ticket Booking (M5)</span>
+          </button>
+          <button onclick="App.navigate('announcements')" data-tab="announcements" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>📢</span> <span>Announcements (M6)</span>
+          </button>
+          <button onclick="App.navigate('feedback')" data-tab="feedback" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>💬</span> <span>Feedback (M6)</span>
+          </button>
+          <button onclick="App.navigate('awards')" data-tab="awards" class="nav-link px-3 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-gray-400 hover:text-white">
+            <span>🏆</span> <span>Awards & Laurels</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Dynamic Workspace View -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="mainContentArea">
+      <!-- Injected by app.js based on currentTab -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#090d16] border-t border-slate-800 mt-16 text-xs text-gray-400">
+    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🎬</span>
+        <div>
+          <p class="font-bold text-white">Short Film Fest Management System</p>
+          <p class="text-slate-500">Student: Akhil John · Regno: CCE25CD011 · Department of Computer Engineering</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <button onclick="App.resetDataPrompt()" class="text-rose-400 hover:underline">
+          Reset Demo Data
+        </button>
+        <span class="text-slate-700">|</span>
+        <button onclick="App.navigate('dashboard')" class="hover:text-amber-400">
+          Admin Portal
+        </button>
+        <span class="text-slate-700">|</span>
+        <button onclick="App.navigate('submissions')" class="hover:text-amber-400">
+          Filmmaker Desk
+        </button>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-600">© 2026 CineFest Platform</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
